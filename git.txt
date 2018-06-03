@@ -42,3 +42,10 @@ then it will ask for user_name and password.....Siddeshvr and gmail_password res
 * git commit -m " "
 * git push origin master
 
+
+
+(5)Updating file...
+
+* git add file_name
+* git commit -m " "
+* git push origin master 
