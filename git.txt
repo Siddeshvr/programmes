@@ -25,3 +25,20 @@ then it will ask for user_name and password.....Siddeshvr and gmail_password res
 * git commit -m " "                       here give your own discription inside double_invites...
 * git remote add origin https://github.com/Siddeshvr/programmes.git
 * git push -u origin master
+
+
+
+(3)Removing file from both repository and filesystem...
+
+* git rm file_name
+* git commit -m " "
+* git push origin master 
+
+
+
+(4)Removing file only from repository...
+
+* git rm --cached file_name
+* git commit -m " "
+* git push origin master
+
