@@ -38,7 +38,7 @@ class Genetic:
 	#Module to prepare Matingpool...
 	def prepare_pool(self):
 		self.matingpool = []
-		for i in range(len(population)):      
+		for i in range(int(len(population)/10)):       #Adding top 10% poulation to pool...      
 			for j in range (population[i][1]):
 				self.matingpool.append(population[i][0])
 
@@ -80,25 +80,25 @@ alp = "abcdefghijklmnopqrstuvwxyz"
 
 target = input("Input a target string : ")
 cross = []
+population = []
 mutate = ""
 ob = Genetic(target)
 
 print("Gene_Transformation...")
 
+for i in range(0,100000):              #Random preparation of population...
+	geno = []
+	for j in range(0,len(target)):
+		geno.append(random.choice(alp))
+
+	ob.population_and_fitness(''.join(geno))
+ob.sorting()
+ob.prepare_pool()
+
 z = 1
 #Looping till we reach our target...
 while ''.join(cross) != target and z<2000000:          #Here z is to terminate from infinite loop...      
-	population = []
 
-	for i in range(0,400):              #Random preparation of 400 population for each generation...
-		geno = []
-		for j in range(0,len(target)):
-			geno.append(random.choice(alp))
-
-		ob.population_and_fitness(''.join(geno))
-
-	ob.sorting()
-	ob.prepare_pool()
 	ob.parent_selection()
 	cross = ob.cross_over()
 	mutate = ob.mutation()
