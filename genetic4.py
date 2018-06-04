@@ -84,7 +84,6 @@ class Genetic:
 		return c
 
 
-#alp = "abcdefghijklmnopqrstuvwxyz"
 alp = string.ascii_lowercase
 
 target = input("Input a target string : ")
