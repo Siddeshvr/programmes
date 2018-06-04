@@ -1,5 +1,6 @@
 #By finding probability...
 import random
+import string
 
 class Genetic:
 	matingpool = []
@@ -83,7 +84,8 @@ class Genetic:
 		return c
 
 
-alp = "abcdefghijklmnopqrstuvwxyz"
+#alp = "abcdefghijklmnopqrstuvwxyz"
+alp = string.ascii_lowercase
 
 target = input("Input a target string : ")
 cross = []
