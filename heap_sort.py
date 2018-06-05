@@ -19,6 +19,7 @@ def value(i,a,b):
 #Creating branches between two nodes...
 def drawline(a,b,x,y):
 	pygame.draw.lines(screen,(255,255,255),False,[(a,b),(x,y)],1)
+
 	
 #Module to create full tree...
 def create_tree(L,n):
@@ -36,13 +37,44 @@ def create_tree(L,n):
 			j += 1
 		i += 1
 
+
+
+
+def Heapsort(L,n):
+	for i in range(int(n/2-1),-1,-1):
+		max_heapify(L,n,i)
+
+	for i in range(n-1,-1,-1):
+		L[0],L[i] = L[i],L[0]
+		max_heapify(L,i,0)
+		create_tree(L,n)
+		pygame.display.update()
+
+def max_heapify(L,n,i):
+	largest = i
+	l = 2*i +1
+	r = 2*i +2
+	if l<n and L[l]>L[largest]:
+		largest = l
+	if r<n and L[r]>L[largest]:
+		largest = r
+
+	if largest != i:
+		L[i],L[largest] = L[largest],L[i]
+		max_heapify(L,n,largest)
+		create_tree(L,n)
+		pygame.display.update()
+
+
+
 L = []
 n = int(input("Number of elements\n"))
 print("Enter ",str(n)," elements : ")
 for i in range(n):
 	L.append(int(input()))
 create_tree(L,len(L))
-pygame.display.update()          #Displaying created tree on pygame window...
+pygame.display.update()
+Heapsort(L,n)
 print("Exit from Pygame window")
 
 while True:
