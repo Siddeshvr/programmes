@@ -50,13 +50,13 @@ def Heapsort(L,n):
 		create_tree(L,n)
 		pygame.display.update()
 
-def heapify(L,n,i):
+def max_heapify(L,n,i):
 	largest = i
 	l = 2*i +1
 	r = 2*i +2
-	if l<n and L[l]>L[largest]:
+	if l<n and L[l]<L[largest]:
 		largest = l
-	if r<n and L[r]>L[largest]:
+	if r<n and L[r]<L[largest]:
 		largest = r
 
 	if largest != i:
