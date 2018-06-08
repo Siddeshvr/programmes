@@ -17,10 +17,9 @@ n = int(input("Number of vertices : "))
 L = []
 print("Enter adjacency matrix...")
 for i in range(n):
-	B = []
+	L.append([])
 	for j in range(n):
-		B.append(int(input()))
-	L.append(B)
+		L[i].append(int(input()))
 S = []
 T_sort()
 print(S)
