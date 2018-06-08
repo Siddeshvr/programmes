@@ -1,42 +1,33 @@
 import queue
 
 def DF_search(s,G):
-	v = []
-	for i in range(len(G)):          #Initializing all nodes as unvisited...
-		x = []
-		x.append(i)
-		x.append(0)
-		v.append(x)	
+
+	v = [False]*(len(G))              #Initializing all nodes as unvisited...
 
 	L = []
-	v[s][1] = 1
+	v[s] = 1
 	L.append(s)
 	while L :
 		x = L.pop(len(L)-1)
 		print(x)
 		for i in range(len(G)):
-			if G[x][i] == 1 and v[i][1] == 0:
-				v[i][1] = 1
+			if G[x][i] == 1 and v[i] == 0:
+				v[i] = 1
 				L.append(i)	
 
 
 def BF_search(s,G):
-	v = []
-	for i in range(len(G)):          #Initializing all nodes as unvisited...
-		x = []
-		x.append(i)
-		x.append(0)
-		v.append(x)	
+	v = [False]*(len(G))          #Initializing all nodes as unvisited...
 
 	L = []
-	v[s][1] = 1
+	v[s] = 1
 	L.append(s)
 	while L :
 		x = L.pop(0)
 		print(x)
 		for i in range(len(G)):
-			if G[x][i] == 1 and v[i][1] == 0:
-				v[i][1] = 1
+			if G[x][i] == 1 and v[i] == 0:
+				v[i] = 1
 				L.append(i)	
 		
 
