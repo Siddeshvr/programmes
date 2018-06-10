@@ -23,7 +23,6 @@ def drawline(a,b,x,y):
 	
 #Module to create full tree...
 def create_tree(L,m,a,b):
-	A = [[400,50],[250,200],[550,200],[175,350],[325,350],[475,350],[625,350],[137,500],[213,500],[287,500],[363,500],[437,500]]
 	for i in range(m):
 		if L[i]==a or L[i]==b:
 			drawcircle(A[i][0] , A[i][1] , (255,105,180))
@@ -81,8 +80,49 @@ def max_heapify(L,m,i):
 		clock.tick(0.5)
 
 
+
+def coordinates():
+	B = []
+	x = 400
+	a = x
+	b = x
+	k = 1
+	y = 1
+	for i in range(3):
+		for j in range(k):
+			B.append(a)
+			B.append(b)
+			x = int(B[0]/(k*2))
+			a = B[y-1]
+			b = a+x
+			a = a-x
+			y = y+1
+		k = k*2
+		if B[1]==B[0]:     #Pop only 2nd element...
+			B.pop(1)
+
+	R = []
+	a = 50
+	k = 1
+	for i in range(4):
+		for j in range(k):
+			R.append(a)
+		a += 150	
+		k = k*2
+
+	A = []
+	for i in range(n):
+		A.append([])
+		A[i].append(B[i])
+		A[i].append(R[i])
+	return A
+
+
 L = []
+
 n = int(input("Number of elements\n"))
+A = coordinates()
+
 print("Enter ",str(n)," elements : ")
 for i in range(n):
 	L.append(int(input()))
@@ -99,4 +139,3 @@ while True:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT :  #when closing window...
 			pygame.quit(); sys.exit(); #To exit from pygame window...
-
