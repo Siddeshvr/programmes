@@ -3,7 +3,7 @@ import pygame,sys           #importing files...
 pygame.init()         # Initiating pygame...
 clock = pygame.time.Clock()
 
-screen = pygame.display.set_mode((800,600),0,32)      #creating screen...
+screen = pygame.display.set_mode((800,800),0,32)      #creating screen...
 pygame.display.set_caption("Heap Sort")
 font = pygame.font.SysFont('Times new Roman',30)      #font to insert value inside circle..."Times new Roman" is a font name...
 
@@ -88,7 +88,7 @@ def coordinates():
 	b = x
 	k = 1
 	y = 1
-	for i in range(3):
+	for i in range(n):
 		for j in range(k):
 			B.append(a)
 			B.append(b)
@@ -104,7 +104,7 @@ def coordinates():
 	R = []
 	a = 50
 	k = 1
-	for i in range(4):
+	for i in range(n):
 		for j in range(k):
 			R.append(a)
 		a += 150	
