@@ -1,4 +1,5 @@
 import pygame,sys           #importing files...
+import random
 
 pygame.init()         # Initiating pygame...
 clock = pygame.time.Clock()
@@ -123,9 +124,8 @@ L = []
 n = int(input("Number of elements\n"))
 A = coordinates()
 
-print("Enter ",str(n)," elements : ")
 for i in range(n):
-	L.append(int(input()))
+	L.append(random.randrange(1,100))    #Random generation of input...
 m = len(L)
 create_tree(L,len(L),1000,2000)
 pygame.display.update()
