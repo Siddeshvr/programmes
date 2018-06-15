@@ -128,13 +128,14 @@ Node* Node :: splitNode(Node *node)
             if(temp->n != 3)           //else go to split in the bottom...
                 return temp;      //return root...
         }
-        else   //Need to work...
+        else   
         {
             Node *temp = getNode();
             temp = node->parent;
             int j = temp->n;
             while(j>=0 and temp->child[j] != node)
             {
+                temp->child[j+1] = getNode();
                 temp->child[j+1] = temp->child[j];
                 j--;
             }
@@ -146,21 +147,30 @@ Node* Node :: splitNode(Node *node)
                 i--;
             }
             temp->key[i+1] = node->key[1];
+            temp->n += 1;
 
-            Node *Z = getNode();;
-            Z = temp->child[j+1];          //Newly formed child...
+            Node *Z = getNode();
+            Z->leaf = false;
+            Z->parent = temp;
 
             Z->key[0] = node->key[2];
             Z->n = 1;
+            Z->child[0] = getNode();
             Z->child[0] = node->child[2];
+            Z->child[0]->parent = Z;
             node->child[2] = NULL;
-            Z->child[0]->n = 1;
+            Z->child[1] = getNode();
             Z->child[1] = node->child[3];
+            Z->child[1]->parent = Z;
             node->child[3] = NULL;
-            Z->child[1]->n = 1;
+
+            temp->child[j+1] = Z;     
 
             node->n = 1;
 
+            temp->child[j] = node;  
+
+            return temp;
         }
     }
 
@@ -169,9 +179,6 @@ Node* Node :: splitNode(Node *node)
     return node;
 
 }
-
-
-
 
 Node* Node :: insert(Node *root , int item)
 {
