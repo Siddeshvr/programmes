@@ -189,16 +189,6 @@ Node* Node :: insert(Node *root , int item)
         root->key[i+1] = item;
         root->n += 1;
 
-        if(root->parent != NULL)
-        {
-            for(int i=0;i<root->parent->n;i++)
-                cout<<root->parent->key[i]<<"P"<<endl;
-            for(int i=0;i<root->n;i++)
-                cout<<root->key[i]<<"N"<<endl;
-            cout<<root->parent->child[1]->key[0]<<endl;
-        }
-
-
         if(root->n == 3)
             root = splitNode(root);
         return root;
@@ -208,7 +198,7 @@ Node* Node :: insert(Node *root , int item)
         int i = root->n-1;
         while(i>=0 and root->key[i] > item)               //decide which child for next insertion...
             i--;
-        root->child[i+1] = insert(root->child[i+1] , item);
+        root = insert(root->child[i+1] , item);
         return root;
     }
 }
