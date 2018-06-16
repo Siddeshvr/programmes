@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <stdlib.h>
 using namespace std;
 
@@ -15,6 +16,8 @@ class Node
     Node* splitNode(Node *root);
     Node* insert(Node *root , int item);
     void Traversal(Node *root);
+    void write_item(Node *root , std::ofstream& ofile);
+    void Graph(Node *root);
 };
 
 Node* Node :: getNode()
@@ -39,6 +42,64 @@ Node* Node :: getNode(int item)
     return temp;
 }
 
+void Node :: write_item(Node *root , std::ofstream& ofile)
+{
+    if(root == NULL)
+        return;
+    
+    if(root->leaf == true and root->parent==NULL)   //only for root node...
+    {
+        ofile<<'"';
+        for(int i=0;i<root->n;i++)
+            ofile<<root->key[i]<<",";
+        ofile<<'"';
+    }
+    else if(root->n == 1)
+    {
+        int k=0;
+        while(k<2 and root->child[0]!=NULL)
+        {
+            ofile<<'"';
+            for(int i=0;i<root->n;i++)
+                ofile<<root->key[i]<<" ";
+            ofile<<'"'<<"--"<<'"';
+            for(int i=0;i<root->child[k]->n;i++)
+                ofile<<root->child[k]->key[i]<<" ";
+            ofile<<'"'<<endl;
+            k++;
+        }
+        write_item(root->child[0],ofile);
+        write_item(root->child[1],ofile);
+    }
+    else if(root->child[2]!=NULL)
+    {
+        int k=0;
+        while(k<3)
+        {
+            ofile<<'"';
+            for(int i=0;i<root->n;i++)
+                ofile<<root->key[i]<<" ";
+            ofile<<'"'<<"--"<<'"';
+            for(int i=0;i<root->child[k]->n;i++)
+                ofile<<root->child[k]->key[i]<<" ";
+            ofile<<'"'<<endl;
+            k++;
+        }
+        write_item(root->child[0],ofile);
+        write_item(root->child[1],ofile);
+        write_item(root->child[2],ofile);
+    }
+}
+
+void Node :: Graph(Node *root)
+{
+    ofstream ofile;
+    ofile.open("diagram.dot");
+    ofile<<"Graph{\n";
+    write_item(root,ofile);
+    ofile<<"}\n";
+    ofile.close();
+}
 
 void Node :: Traversal(Node *root)
 {
@@ -64,7 +125,6 @@ void Node :: Traversal(Node *root)
         Traversal(root->child[2]);
     }
 }
-
 
 Node* Node :: splitNode(Node *node)
 {
@@ -113,7 +173,6 @@ Node* Node :: splitNode(Node *node)
 
             return temp;
         }
-
     }
     else
     {
@@ -149,10 +208,9 @@ Node* Node :: splitNode(Node *node)
             temp->child[j]->parent = temp;
             temp->child[j]->leaf = true;
 
-            if(temp->n != 3)           //else go to split...
+            if(temp->n != 3)           //else split...
                 return temp;      //return root...
         }
-
         else   
         {
             Node *temp = getNode();
@@ -197,11 +255,9 @@ Node* Node :: splitNode(Node *node)
             return temp;
         }
     }
-
     if(node->parent != NULL)
         node = splitNode(node->parent);
     return node;
-
 }
 
 Node* Node :: insert(Node *root , int item)
@@ -220,7 +276,7 @@ Node* Node :: insert(Node *root , int item)
         root->key[i+1] = item;
         root->n += 1;
 
-        if(root->n == 3)                   //if node if full...split...
+        if(root->n == 3)
             root = splitNode(root);
 
         while(root->parent != NULL)
@@ -232,7 +288,6 @@ Node* Node :: insert(Node *root , int item)
         int i = root->n-1;
         while(i>=0 and root->key[i] > item)               //decide which child for next insertion...
             i--;
-
         root = insert(root->child[i+1],item);
         return root;
     }
@@ -246,7 +301,7 @@ int main()
 	int c;
 	while(true)
 	{
-		cout<<"\n1.Insert \n2.Delete\n3.Display graph\n4.Sorted order\n5.exit\n";
+		cout<<"\n1.Insert \n2.Display graph\n3.Sorted order\n4.exit\n";
 		cout<<"Enter your choice : ";
 		cin>>c;
 		switch(c)
@@ -256,9 +311,17 @@ int main()
 					cin>>item;
 					root = ob.insert(root,item);
 					break;
-            case 3:ob.Traversal(root);
-                        break;
-			case 5:exit(0);
+            case 2:ob.Graph(root);
+                    break;
+            case 3:if(root == NULL)
+                        cout<<"Empty\n";
+                    else
+                    {
+                        cout<<"Sorted order : ";
+                        ob.Traversal(root);
+                    }
+                    break;
+			case 4:exit(0);
 			default:cout<<"Invalid choice\n";
 					exit(0);
 		}
