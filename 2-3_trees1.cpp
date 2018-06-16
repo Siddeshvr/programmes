@@ -2,7 +2,6 @@
 #include <stdlib.h>
 using namespace std;
 
-
 class Node 
 {
     int n;
@@ -15,6 +14,7 @@ class Node
     Node* getNode(int item);
     Node* splitNode(Node *root);
     Node* insert(Node *root , int item);
+    void Traversal(Node *root);
 };
 
 Node* Node :: getNode()
@@ -25,7 +25,6 @@ Node* Node :: getNode()
         temp->child[i] = NULL;
     return temp;
 }
-
 
 Node* Node :: getNode(int item)
 {
@@ -38,6 +37,32 @@ Node* Node :: getNode(int item)
     temp->leaf = true;
     temp->parent = NULL;
     return temp;
+}
+
+
+void Node :: Traversal(Node *root)
+{
+    if(root == NULL)
+        return;
+
+    if(root->leaf == true)
+        for(int i=0;i<root->n;i++)
+            cout<<root->key[i]<<" ";
+    else if(root->n == 1)
+    {
+        Traversal(root->child[0]);
+        for(int i=0;i<root->n;i++)
+            cout<<root->key[i]<<" ";
+        Traversal(root->child[1]);
+    }
+    else
+    {
+        Traversal(root->child[0]);
+        cout<<root->key[0]<<" ";
+        Traversal(root->child[1]);
+        cout<<root->key[1]<<" ";
+        Traversal(root->child[2]);
+    }
 }
 
 
@@ -84,7 +109,6 @@ Node* Node :: splitNode(Node *node)
             temp->child[1] = Z;     //roots right child...
 
             node->n = 1;
-
             temp->child[0] = node;  //root left child...
 
             return temp;
@@ -125,9 +149,10 @@ Node* Node :: splitNode(Node *node)
             temp->child[j]->parent = temp;
             temp->child[j]->leaf = true;
 
-            if(temp->n != 3)           //else go to split in the bottom...
+            if(temp->n != 3)           //else go to split...
                 return temp;      //return root...
         }
+
         else   
         {
             Node *temp = getNode();
@@ -167,7 +192,6 @@ Node* Node :: splitNode(Node *node)
             temp->child[j+1] = Z;     
 
             node->n = 1;
-
             temp->child[j] = node;  
 
             return temp;
@@ -196,8 +220,11 @@ Node* Node :: insert(Node *root , int item)
         root->key[i+1] = item;
         root->n += 1;
 
-        if(root->n == 3)
+        if(root->n == 3)                   //if node if full...split...
             root = splitNode(root);
+
+        while(root->parent != NULL)
+            root = root->parent;
         return root;
     }
     else
@@ -205,16 +232,16 @@ Node* Node :: insert(Node *root , int item)
         int i = root->n-1;
         while(i>=0 and root->key[i] > item)               //decide which child for next insertion...
             i--;
-        root = insert(root->child[i+1] , item);
+
+        root = insert(root->child[i+1],item);
         return root;
     }
 }
 
-
 int main()
 {
 	Node ob;
-	Node *root = ob.getNode();
+	Node *root;
 	root = NULL;
 	int c;
 	while(true)
@@ -229,6 +256,8 @@ int main()
 					cin>>item;
 					root = ob.insert(root,item);
 					break;
+            case 3:ob.Traversal(root);
+                        break;
 			case 5:exit(0);
 			default:cout<<"Invalid choice\n";
 					exit(0);
