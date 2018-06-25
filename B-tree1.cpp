@@ -374,7 +374,6 @@ int main()
 					cin>>item;
 					root = ob.Insert(root,item);
 					break;    
-            
             case 2:ob.Graph(root);
                     break;
             case 3:if(root == NULL)
