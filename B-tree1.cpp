@@ -358,7 +358,7 @@ int main()
     cout<<"Enter degree 't' value : ";
 	Node ob;   
     cin>>ob.t;
-
+    int item;
 	Node *root;  //Initail root which is NULL...
 	root = NULL;
 	int c;
@@ -369,9 +369,9 @@ int main()
 		cin>>c;
 		switch(c)
 		{
-			case 1:cout<<"Enter an inserting element : ";
-					int item;
-					cin>>item;
+			case 1:srand(time(0));
+					item = (rand() % (100-0+1))+0 ;
+                    //cout<<item<<endl;           //To know which item generated...
 					root = ob.Insert(root,item);
 					break;    
             case 2:ob.Graph(root);
