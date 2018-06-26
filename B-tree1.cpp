@@ -8,10 +8,11 @@ class Node
     int n;
     int key[10];
     Node *child[11];
-    Node *parent;
+    //Node *parent;
     bool leaf;
     public:
     int t;   //degree...
+    Node *parent;
     Node* getNode();
     Node* Insert(Node *root , int item);
     Node* Splitting(Node *node , int item);
@@ -34,28 +35,41 @@ void Node :: write_item(Node *root , std::ofstream& ofile)
 {
     if(root == NULL)
         return;
-
-    if(root->child[0]==NULL)
+    
+    else if(t==1)   //If degree 1...
     {
-        ofile<<'"';
-        for(int j=0; j<root->n; j++)
-            ofile<<root->key[j]<<",";
-        ofile<<'"';
+        if(root->child[0] != NULL)
+            ofile<<root->key[0]<<"--"<<root->child[0]->key[0]<<";"<<endl;
+        if(root->child[1] != NULL)
+            ofile<<root->key[0]<<"--"<<root->child[1]->key[0]<<";"<<endl;
+        write_item(root->child[0],ofile);
+        write_item(root->child[1],ofile);
     }
-    else 
+
+    else
     {
-        for(int i=0; i<root->n+1; i++)
+        if(root->child[0]==NULL)
         {
             ofile<<'"';
             for(int j=0; j<root->n; j++)
                 ofile<<root->key[j]<<",";
             ofile<<'"';
-            ofile<<"--"<<'"';
-            for(int j=0; j<root->child[i]->n; j++)
-                ofile<<root->child[i]->key[j]<<",";
-            ofile<<'"';
+        }
+        else 
+        {
+            for(int i=0; i<root->n+1; i++)
+            {
+                ofile<<'"';
+                for(int j=0; j<root->n; j++)
+                    ofile<<root->key[j]<<",";
+                ofile<<'"';
+                ofile<<"--"<<'"';
+                for(int j=0; j<root->child[i]->n; j++)
+                    ofile<<root->child[i]->key[j]<<",";
+                ofile<<'"';
 
-            write_item(root->child[i],ofile);
+                write_item(root->child[i],ofile);
+            }
         }
     }
 }
@@ -73,21 +87,49 @@ void Node :: Graph(Node *root)
 
 void Node :: Traversal(Node *root)    
 {
-    int i;
-    for(i=0;i<root->n;i++)
+    if(t==1)   //If degree 1...
     {
+        if(root!=NULL)
+        {
+            Traversal(root->child[0]);
+            cout<<root->key[0]<<" ";
+            Traversal(root->child[1]);
+        }
+    }
+    else
+    {
+        int i;
+        for(i=0;i<root->n;i++)
+        {
+            if(root->leaf == false)
+                Traversal(root->child[i]);
+            cout<<" "<<root->key[i];
+        }
         if(root->leaf == false)
             Traversal(root->child[i]);
-        cout<<" "<<root->key[i];
     }
-    if(root->leaf == false)
-        Traversal(root->child[i]);
 }
 
 
 Node* Node :: Splitting(Node *node , int item)
 {
-    if(node->parent == NULL)
+    if(t == 1)        //If degree 1 no need to split...just insert to particular child...
+    {
+        int i = node->n -1;
+        if(node->key[i] > item)      //Getting particual child...
+            i--;
+        node->child[i+1] = getNode();
+        node->child[i+1]->key[0] = item;
+        node->child[i+1]->n = 1;
+        node->child[i+1]->leaf = true;
+        node->child[i+1]->parent = node;
+        node->leaf = false;
+
+        return node;
+    }
+
+
+    if(node->parent == NULL)  //If degree != 1...
     {
         if(node->child[0]==NULL and node->child[1]==NULL)
         {
@@ -318,7 +360,7 @@ Node* Node :: Insert(Node *root , int item)
         temp->key[0] = item;
         temp->n = 1;
         temp->leaf = true;
-        temp->parent = NULL;      //First make as NULL , then assign...
+        //temp->parent = NULL;      //First make as NULL , then assign...
         return temp;
     }
     
@@ -345,10 +387,26 @@ Node* Node :: Insert(Node *root , int item)
     else
     {
         int i = root->n -1;
-        while(i>=0 and root->key[i]>item)
+        while(i>=0 and root->key[i]>item)             
             i--;
-        root = Insert(root->child[i+1] , item);
-        return root;
+
+        if(t==1 and root->child[i+1]==NULL)    //only if degree=1...
+        {
+            root->child[i+1] = getNode();
+            root->child[i+1]->parent = root;
+            root->child[i+1]->leaf = true;
+            root = Insert(root , item);
+            return root;
+        }
+
+        else
+        {
+            root = Insert(root->child[i+1] , item);
+
+            while(root->parent != NULL)
+                root = root->parent;
+            return root;
+        }
     }
 }
 
@@ -370,9 +428,10 @@ int main()
 		switch(c)
 		{
 			case 1:srand(time(0));
-					item = (rand() % (100-0+1))+0 ;
-                    //cout<<item<<endl;           //To know which item generated...
+					item = (rand() % (100-0+1))+0 ;      //Generate random input form 0 to 100...
+                    cout<<item<<endl;           //To know which item generated...
 					root = ob.Insert(root,item);
+                    root->parent = NULL;
 					break;    
             case 2:ob.Graph(root);
                     break;
