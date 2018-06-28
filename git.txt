@@ -1,0 +1,51 @@
+(1)New Repository creating ...
+*************************
+* repsitory name
+* private
+* create repository
+
+create folder and inside that
+* echo "# programmes" >> README.md
+* git init
+* git add README.md
+* git commit -m "first commit"
+* git remote add origin https://github.com/Siddeshvr/programmes.git
+* git push -u origin master
+
+then it will ask for user_name and password.....Siddeshvr and gmail_password respectively... 
+
+
+
+
+
+(2)Adding files...
+
+* create a file inside that folder
+* git add file_name
+* git commit -m " "                       here give your own discription inside double_invites...
+* git remote add origin https://github.com/Siddeshvr/programmes.git
+* git push -u origin master
+
+
+
+(3)Removing file from both repository and filesystem...
+
+* git rm file_name
+* git commit -m " "
+* git push origin master 
+
+
+
+(4)Removing file only from repository...
+
+* git rm --cached file_name
+* git commit -m " "
+* git push origin master
+
+
+
+(5)Updating file...
+
+* git add file_name
+* git commit -m " "
+* git push origin master 
