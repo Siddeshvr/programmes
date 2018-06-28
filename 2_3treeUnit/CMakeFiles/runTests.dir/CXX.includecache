@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/siddesh/github/programmes/2_3treeUnit/Fun_test.cpp
+iostream
+-
+fstream
+-
+stdlib.h
+-
+
+/home/siddesh/github/programmes/2_3treeUnit/tests.cpp
+limits.h
+-
+Fun_test.cpp
+/home/siddesh/github/programmes/2_3treeUnit/Fun_test.cpp
+gtest/gtest.h
+-
+
