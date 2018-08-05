@@ -8,22 +8,22 @@ class Two_Strings
     {
         Scanner jin = new Scanner(System.in);
         int n = jin.nextInt();
-        jin.nextLine();           //Consume next line...
+        jin.nextLine();           //Consume next line...mandatory during array String or character...
         char[][] C = new char[n][];
         char[][] S = new char[n][];
         for(int j=0;j<n;j++)
         {
-            S[j] = jin.nextLine().toCharArray();
+            S[j] = jin.nextLine().toCharArray();   //character array which stores string...
             C[j] = jin.nextLine().toCharArray();
         }
 
-        for(int j=0;j<n;j++)
+        for(int j=0;j<n;j++)   
         {
             int flag=0;
-            String c = Arrays.toString(S[j]);
-            for(int i=0;i<C[j].length;i++) 
+            String c = Arrays.toString(S[j]);         //character array to String...
+            for(int i=0;i<C[j].length;i++)            //this loop is to compare first string with second....
             {
-                CharSequence a = Character.valueOf(C[j][i]).toString();
+                CharSequence a = Character.valueOf(C[j][i]).toString();   //character to character-sequence...
                 if(c.contains(a)) flag=0; 
                 else 
                 {
@@ -33,7 +33,7 @@ class Two_Strings
             }
 
             String d = Arrays.toString(C[j]);
-            for(int i=0;i<S[j].length;i++) 
+            for(int i=0;i<S[j].length;i++)           //this loop is to compare second string with first....
             {
                 CharSequence a = Character.valueOf(S[j][i]).toString();
                 if(d.contains(a)) flag=0; 
