@@ -5,6 +5,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require("path");
 const url = require("url");
+const Menu = electron.Menu;
 const nativeImage = electron.nativeImage;
 
 let demoIcon = nativeImage.createFromPath(path.join(__dirname,'Appicon2.png'));
@@ -24,7 +25,16 @@ function createWindow()
     })
 }
 
-app.on('ready',createWindow);
+app.on('ready',function(){
+    createWindow();
+    const template = [
+        {
+            label: 'Welcome'
+        }
+    ]
+    const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
+});
 
 app.on('window-all-closed',() =>{
     if(process.platform !== 'darwin')
