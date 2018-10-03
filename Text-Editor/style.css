@@ -22,6 +22,11 @@ small{
 text{
     color: rgb(145, 40, 3);
 }
+name{
+    color: rgba(22, 4, 126, 0.952);
+    font-style: italic;
+    font-size: 12px;
+}
 search{
     position: fixed;
 }
