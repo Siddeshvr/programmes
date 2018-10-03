@@ -3,17 +3,18 @@ const {dialog} = require("electron").remote;
 
 
 //Creating a new file...
+//and write the content of the editor area to that file...
 document.getElementById("btn-createfile").addEventListener("click",()=>{
     let content = document.getElementById("content-editor").value;
     dialog.showSaveDialog((fileName)=>{
-        if(fileName === undefined)
+        if(fileName === undefined)       //If I don't specify any file name...
         {
             console.log("File didn't created");
             return;
         }
         else
         {
-            document.getElementById("actual-file").value = fileName;
+            document.getElementById("actual-file").value = fileName;    //particular file...
             fs.writeFile(fileName,content,(err)=>{
                 if(err)
                 {
@@ -27,7 +28,7 @@ document.getElementById("btn-createfile").addEventListener("click",()=>{
 },false);
 
 
-//Reading a existing file...
+//Opening an existing file...
 document.getElementById("btn-readfile").addEventListener("click",()=>{
     dialog.showOpenDialog((fileNames)=>{
         if(fileNames === undefined)
@@ -49,6 +50,21 @@ document.getElementById("btn-readfile").addEventListener("click",()=>{
         }
     });
 }, false);
+
+//Closing an opened file...
+document.getElementById("btn-close").addEventListener("click",()=>{
+    var fileName = document.getElementById("actual-file").value;
+    if(!fileName)
+    {
+        alert("No file opened");
+        return;
+    }
+    else
+    {
+        document.getElementById("actual-file").value = null;
+        document.getElementById("content-editor").value = null;
+    }
+},false);
 
 
 //Save changes...
@@ -101,7 +117,7 @@ document.getElementById("btn-delete").addEventListener("click",()=>{
 
 //Closing a editor...
 const remote = require('electron').remote
-document.getElementById("btn-close").addEventListener("click",()=>{
+document.getElementById("btn-exit").addEventListener("click",()=>{
     var window = remote.getCurrentWindow()
     window.close();
 },false);
@@ -121,3 +137,46 @@ window.$ = window.jQuery = require("jquery");
 $(function() {   
     $('textarea').linenumbers({col_width:'1px'});	
 });
+
+
+//Minimizing the window...
+document.getElementById("btn-minimize").addEventListener("click",()=>{
+    var window = remote.getCurrentWindow()
+    window.minimize();
+});
+//Ribbon control...full window and half window...
+document.getElementById("btn-ribbon").addEventListener("click",()=>{
+    var window = remote.getCurrentWindow()
+    if(!window.isMaximized()) {window.maximize();}
+    else {window.unmaximize();}
+});
+
+
+//Cut,Copy and Paste...
+const electron = require('electron');
+const clipboard = electron.clipboard;
+
+document.getElementById("btn-cut").addEventListener("click",()=>{
+    document.execCommand("cut");      //cut selected text and copy to clipboard...
+});
+
+document.getElementById("btn-copy").addEventListener("click",()=>{
+    //clipboard.writeText(document.getElementById('content-editor').value);
+    document.execCommand("copy");    //copy selected text to clipboard...
+});
+
+document.getElementById("btn-paste").addEventListener("click",()=>{
+    InsertCodeInTextArea(document.getElementById('content-editor')  ,  `${clipboard.readText()}`);
+});
+//Function to get the current caret position and insert clipboard data there...
+function InsertCodeInTextArea(textArea,newText) 
+{
+    var start = textArea.selectionStart   //before cursor data...
+    var end = textArea.selectionEnd       //after cursor data...
+    var text = textArea.value             
+    var before = text.substring(0, start)
+    var after  = text.substring(end, text.length)
+    textArea.value = (before + newText + after)        //Insert where cursor specify...
+    textArea.selectionStart = textArea.selectionEnd = start + newText.length
+    textArea.focus()
+}
