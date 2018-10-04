@@ -153,30 +153,28 @@ document.getElementById("btn-ribbon").addEventListener("click",()=>{
 
 
 //Cut,Copy and Paste...
-const electron = require('electron');
-const clipboard = electron.clipboard;
-
 document.getElementById("btn-cut").addEventListener("click",()=>{
     document.execCommand("cut");      //cut selected text and copy to clipboard...
 });
 
 document.getElementById("btn-copy").addEventListener("click",()=>{
-    //clipboard.writeText(document.getElementById('content-editor').value);
     document.execCommand("copy");    //copy selected text to clipboard...
 });
 
 document.getElementById("btn-paste").addEventListener("click",()=>{
-    InsertCodeInTextArea(document.getElementById('content-editor')  ,  `${clipboard.readText()}`);
+    document.execCommand("paste");   //paste clipboard content at caret position...
 });
-//Function to get the current caret position and insert clipboard data there...
-function InsertCodeInTextArea(textArea,newText) 
-{
-    var start = textArea.selectionStart   //before cursor data...
-    var end = textArea.selectionEnd       //after cursor data...
-    var text = textArea.value             
-    var before = text.substring(0, start)
-    var after  = text.substring(end, text.length)
-    textArea.value = (before + newText + after)        //Insert where cursor specify...
-    textArea.selectionStart = textArea.selectionEnd = start + newText.length
-    textArea.focus()
-}
+
+
+//Undo and Redo on textarea...
+document.getElementById("btn-undo").addEventListener("click",()=>{
+    document.execCommand("undo");
+});
+
+document.getElementById("btn-redo").addEventListener("click",()=>{
+    document.execCommand("redo");
+});
+
+document.getElementById("btn-all").addEventListener("click",()=>{
+    document.execCommand("selectAll");
+});
