@@ -8,38 +8,75 @@
     </head>
 
     <body>
-        <input type="button" id="btn-createfile" value="New" />
-        &ensp;
-        <input type="button" id="btn-readfile" value="Open" />
-        &ensp;
-        <input type="button" id="btn-close" value="Close" />
-        &ensp;
-        <input type="button" id="save-changes" value="Save"/>
-        &ensp;
-        <input type="button" id="btn-delete" value="Delete" />
-        &ensp;
-        <input type="button" id="btn-cut" value="Cut" />
-        &ensp;
-        <input type="button" id="btn-copy" value="Copy" />
-        &ensp;
-        <input type="button" id="btn-paste" value="Paste" />
-        &ensp;
-        <input type="button" id="btn-minimize" value="Minimize" />
-        &ensp;
-        <input type="button" id="btn-ribbon" value="Ribbon-ctrl" />
-        &ensp;
-        <input type="button" id="btn-exit" value="Exit" />
+        <a href="#" class="button">
+            <input type="button" id="btn-createfile" value="New" accesskey="n"/><br />
+            alt+n
+        </a>
+        <a href="#" class="button">
+                <input type="button" id="btn-readfile" value="Open" accesskey="o"/><br />
+            alt+o
+        </a>
+        <a href="#" class="button">
+                <input type="button" id="btn-close" value="Close" accesskey="w"/><br />
+            alt+w
+        </a>
+        <a href="#" class="button">
+                <input type="button" id="save-changes" value="Save" accesskey="s"/><br />
+            alt+s
+        </a>
+        <a href="#" class="button">
+                <input type="button" id="btn-delete" value="Delete" accesskey="d"/><br />
+            alt+d
+        </a>
+        <a href="#" class="button">
+            <input type="button" id="btn-undo" value="Undo" accesskey="z"/><br />
+            alt+z
+        </a>
+        <a href="#" class="button">
+                <input type="button" id="btn-redo" value="Redo" accesskey="y"/><br />
+            alt+y
+        </a>
+        <a href="#" class="button">
+                <input type="button" id="btn-all" value="Sel-All" accesskey="a"/><br />
+            alt+a
+        </a>
+        <a href="#" class="button">
+            <input type="button" id="btn-cut" value="Cut" accesskey="x"/><br />
+            alt+x
+        </a>
+        <a href="#" class="button">
+            <input type="button" id="btn-copy" value="Copy" accesskey="c"/><br />
+            alt+c
+        </a>
+        <a href="#" class="button">
+            <input type="button" id="btn-paste" value="Paste" accesskey="v"/><br />
+            alt+v
+        </a>
+        <a href="#" class="button">
+            <input type="button" id="btn-minimize" value="Minimize" accesskey="m"/><br />
+            alt+m
+        </a>
+        <a href="#" class="button">
+            <input type="button" id="btn-ribbon" value="Zoom" accesskey="r"/><br />
+            alt+r
+        </a>
+        <a href="#" class="button">
+            <input type="button" id="btn-exit" value="Quit" accesskey="q"/><br />
+            alt+q
+        </a>
         &ensp;
         <input type="text" id="input" class="form-control" placeholder="" />
-        <input type="image" id="btn-search" src="search2.png" width="20" height="20" align="right"/>
+
+        <input type="image" id="btn-search" src="search2.png" width="20" height="20" align="right" accesskey="f"/>
         <div class="a">
-            <small>Search</small>
+            <small>alt+f</small>
         </div>
+
         <small>Editing page...</small>
         &ensp;&ensp;
         <name>file-path:</name>
         <input type="text" placeholder=" select a file..." id="actual-file" disabled="disabled" style="color:rgb(78, 30, 2)"/>
-
+        
         <div style="text-align:center;">
             <textarea id="content-editor" rows="40.9" cols="169"></textarea>
             <text>$code-editor$</text>
