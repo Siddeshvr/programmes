@@ -2,6 +2,15 @@ const fs = require("fs");
 const {dialog} = require("electron").remote;
 
 
+//To move the cursor to end...(to set line number)
+function temp()
+{
+    var element = document.getElementById("content-editor");
+    element.focus();
+    element.setSelectionRange(element.value.length,element.value.length);
+}
+
+
 //Creating a new file...
 //and write the content of the editor area to that file...
 document.getElementById("btn-createfile").addEventListener("click",()=>{
@@ -46,6 +55,7 @@ document.getElementById("btn-readfile").addEventListener("click",()=>{
                     return;
                 }
                 document.getElementById("content-editor").value = data;
+                temp();
             });
         }
     });
@@ -63,6 +73,7 @@ document.getElementById("btn-close").addEventListener("click",()=>{
     {
         document.getElementById("actual-file").value = null;
         document.getElementById("content-editor").value = null;
+        temp();
     }
 },false);
 
@@ -135,7 +146,7 @@ document.getElementById("btn-search").addEventListener('click', () => {
 //line numbers in textarea...
 window.$ = window.jQuery = require("jquery");
 $(function() {   
-    $('textarea').linenumbers({col_width:'1px'});	
+    $('#content-editor').linenumbers({col_width:'1px'});	
 });
 
 
@@ -173,9 +184,19 @@ document.getElementById("btn-undo").addEventListener("click",()=>{
 
 document.getElementById("btn-redo").addEventListener("click",()=>{
     document.execCommand("redo");
+    temp();
 });
 
 //Select content of textArea...
 document.getElementById("btn-all").addEventListener("click",()=>{
     document.execCommand("selectAll");
 });
+
+
+
+/*
+const electron = require('electron');
+const clipboard = electron.clipboard;
+clipboard.writeText(document.getElementById('content-editor').value);
+`${clipboard.readText()}`           //clipboard content...
+*/
