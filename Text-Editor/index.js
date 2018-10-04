@@ -175,6 +175,7 @@ document.getElementById("btn-redo").addEventListener("click",()=>{
     document.execCommand("redo");
 });
 
+//Select content of textArea...
 document.getElementById("btn-all").addEventListener("click",()=>{
     document.execCommand("selectAll");
 });
