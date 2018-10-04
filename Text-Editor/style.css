@@ -36,6 +36,20 @@ div.a{
 }
 
 
+a.button{
+    float:left;
+    width:70px;
+    text-align:center;
+    text-decoration:none;
+    color:#666;
+    font-size: 12px;
+}
+a.button:hover{
+    color:#000;
+}
+
+
+
 .electron-in-page-search-window {
     position: fixed;
     top: 0;
