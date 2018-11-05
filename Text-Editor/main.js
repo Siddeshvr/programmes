@@ -20,6 +20,7 @@ function createWindow()
         slashes: true
     }));
 
+    //win.webContents.openDevTools();
     win.on('closed',() =>{
         win = null;
     })
@@ -34,18 +35,4 @@ app.on('ready',function(){
     ]
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
-});
-
-app.on('window-all-closed',() =>{
-    if(process.platform !== 'darwin')
-    {
-        app.quit()
-    }
-});
-
-app.on('activate',() =>{
-    if(win === null)
-    {
-        createWindow();
-    }
 });
