@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>VRTM-Code</title>
+        <title>Geeks-Note</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
     </head>
@@ -12,10 +12,12 @@
             <input type="button" id="btn-createfile" value="New" accesskey="n"/><br />
             alt+n
         </a>
+    
         <a href="#" class="button">
             <input type="button" id="btn-readfile" value="Open" accesskey="o"/><br />
             alt+o
         </a>
+        
         <a href="#" class="button">
             <input type="button" id="btn-close" value="Close" accesskey="w"/><br />
             alt+w
@@ -64,24 +66,32 @@
             <input type="button" id="btn-exit" value="Quit" accesskey="q"/><br />
             alt+q
         </a>
+        <a href="#" class="button">
+            <input type="button" id="btn-mul" accesskey="t"/><br />
+        </a>
         &ensp;
-        <input type="text" id="input" class="form-control" placeholder="" />
 
         <input type="image" id="btn-search" src="search2.png" width="20" height="20" align="right" accesskey="f"/>
         <div class="a">
             <small>alt+f</small>
         </div>
+        
+        <input type='file' id="mul-files" onchange= openFile(event) multiple><br />
 
-        <small>Editing page...</small>
-        &ensp;&ensp;
-        <name>file-path:</name>
+
+        <name>file-dir:</name>
+        <input type="text" placeholder=" select a file" id="file-dir" disabled="disabled" style="color:rgb(78, 30, 2)"/>
+        
+        <name>file-name:</name>
         <input type="text" placeholder=" select a file..." id="actual-file" disabled="disabled" style="color:rgb(78, 30, 2)"/>
         
+        
         <div style="text-align:center;">
-            <textarea id="content-editor" rows="40.9" cols="169"></textarea>
+            <textarea id="content-editor" rows="38.5" cols="169"></textarea>
             <text>$code-editor$</text>
             <input type="image" src="smily.png" width="20" height="20" align="center"/>
         </div>
+
     </body>
 
     <script src="index.js"></script>
